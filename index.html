@@ -1,722 +1,623 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Green Network - Protect Earth</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>智能安防 - 专业监控摄像机解决方案</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        :root {
-            --primary: #2e7d32;
-            --secondary: #4caf50;
-            --accent: #8bc34a;
-            --light: #e8f5e9;
-            --dark: #1b5e20;
-            --text: #333333;
-            --white: #ffffff;
         }
 
         body {
-            background-color: var(--light);
-            color: var(--text);
-            line-height: 1.6;
+            font-family: 'Segoe UI', 'Microsoft YaHei', Arial, sans-serif;
+            background: linear-gradient(135deg, #0a0e1a 0%, #121a2b 100%);
+            color: #ffffff;
+            overflow-x: hidden;
         }
 
-        header {
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            color: var(--white);
-            padding: 1rem 0;
-            position: sticky;
+        /* 导航栏 */
+        .navbar {
+            position: fixed;
             top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
+            width: 100%;
+            background: rgba(10, 14, 26, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
         }
 
         .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 0 20px;
         }
 
         .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.8rem;
-            font-weight: 700;
+            font-size: 24px;
+            font-weight: bold;
+            color: #00d4ff;
+            text-decoration: none;
         }
 
-        .logo i {
-            font-size: 2rem;
-        }
-
-        nav ul {
+        .nav-links {
             display: flex;
             list-style: none;
+            gap: 30px;
         }
 
-        nav ul li {
-            margin-left: 2rem;
-        }
-
-        nav ul li a {
-            color: var(--white);
+        .nav-links a {
+            color: #ffffff;
             text-decoration: none;
+            transition: color 0.3s ease;
             font-weight: 500;
-            transition: all 0.3s ease;
-            padding: 0.5rem 0;
-            position: relative;
         }
 
-        nav ul li a:hover {
-            color: var(--accent);
+        .nav-links a:hover {
+            color: #00d4ff;
         }
 
-        nav ul li a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--accent);
-            transition: width 0.3s ease;
-        }
-
-        nav ul li a:hover::after {
-            width: 100%;
-        }
-
-        .hero {
-            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2073&q=80');
-            background-size: cover;
-            background-position: center;
-            height: 80vh;
+        /* 主要内容区域 */
+        .hero-section {
+            height: 100vh;
             display: flex;
             align-items: center;
-            text-align: center;
-            color: var(--white);
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
         }
 
         .hero-content {
+            text-align: center;
+            z-index: 2;
             max-width: 800px;
-            margin: 0 auto;
+            padding: 0 20px;
         }
 
-        .hero h1 {
+        .hero-title {
             font-size: 3.5rem;
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #00d4ff, #0099cc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        .hero p {
-            font-size: 1.3rem;
-            margin-bottom: 2rem;
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: #a0a8b0;
+            margin-bottom: 40px;
+            line-height: 1.6;
         }
 
-        .btn {
+        .cta-button {
             display: inline-block;
-            background-color: var(--accent);
-            color: var(--white);
-            padding: 0.8rem 2rem;
-            border-radius: 50px;
+            padding: 15px 40px;
+            background: linear-gradient(45deg, #00d4ff, #0088cc);
+            color: white;
             text-decoration: none;
+            border-radius: 50px;
             font-weight: 600;
             transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
         }
 
-        .btn:hover {
-            background-color: var(--primary);
+        .cta-button:hover {
             transform: translateY(-3px);
-            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.4);
         }
 
-        section {
-            padding: 5rem 0;
+        /* 背景动画 */
+        .bg-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .floating-element {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(0, 212, 255, 0.6);
+            border-radius: 50%;
+            animation: float 6s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.6; }
+            50% { transform: translateY(-20px) rotate(180deg); opacity: 1; }
+        }
+
+        /* 产品展示区域 */
+        .products-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #0f1419 0%, #1a2332 100%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
 
         .section-title {
             text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .section-title h2 {
             font-size: 2.5rem;
-            color: var(--primary);
-            margin-bottom: 1rem;
-            position: relative;
-            display: inline-block;
+            margin-bottom: 60px;
+            color: #00d4ff;
         }
 
-        .section-title h2::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .product-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(0, 212, 255, 0.5);
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.2);
+        }
+
+        .product-icon {
             width: 80px;
-            height: 4px;
-            background-color: var(--accent);
-            border-radius: 2px;
-        }
-
-        .section-title p {
-            color: var(--text);
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
+            height: 80px;
+            background: linear-gradient(45deg, #00d4ff, #0088cc);
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
             align-items: center;
+            justify-content: center;
+            font-size: 2rem;
         }
 
-        .about-img {
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .about-img img {
-            width: 100%;
-            height: auto;
-            display: block;
-            transition: transform 0.5s ease;
-        }
-
-        .about-img:hover img {
-            transform: scale(1.05);
-        }
-
-        .about-text h3 {
-            font-size: 1.8rem;
-            margin-bottom: 1.5rem;
-            color: var(--dark);
-        }
-
-        .about-text p {
-            margin-bottom: 1.5rem;
-        }
-
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .stat-item {
-            text-align: center;
-            padding: 2rem 1rem;
-            background-color: var(--white);
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease;
-        }
-
-        .stat-item:hover {
-            transform: translateY(-10px);
-        }
-
-        .stat-item i {
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin-bottom: 1rem;
-        }
-
-        .stat-item h3 {
-            font-size: 2.5rem;
-            color: var(--dark);
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-item p {
-            color: var(--text);
-        }
-
-        .initiatives {
-            background-color: var(--white);
-        }
-
-        .initiatives-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-        }
-
-        .initiative-card {
-            background-color: var(--light);
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease;
-        }
-
-        .initiative-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .initiative-img {
-            height: 200px;
-            overflow: hidden;
-        }
-
-        .initiative-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .initiative-card:hover .initiative-img img {
-            transform: scale(1.1);
-        }
-
-        .initiative-content {
-            padding: 1.5rem;
-        }
-
-        .initiative-content h3 {
+        .product-title {
             font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--dark);
+            margin-bottom: 15px;
+            color: #ffffff;
         }
 
-        .initiative-content p {
-            margin-bottom: 1.5rem;
+        .product-description {
+            color: #a0a8b0;
+            line-height: 1.6;
+            margin-bottom: 20px;
         }
 
-        .cta {
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            color: var(--white);
+        .product-features {
+            list-style: none;
+            text-align: left;
+            color: #c0c8d0;
+        }
+
+        .product-features li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .product-features li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #00d4ff;
+        }
+
+        /* 特性展示 */
+        .features-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #121a2b 0%, #0a0e1a 100%);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .feature-item {
             text-align: center;
-            padding: 5rem 0;
+            padding: 30px;
         }
 
-        .cta h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
+        .feature-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #00d4ff;
+            margin-bottom: 15px;
         }
 
-        .cta p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
+        .feature-label {
+            font-size: 1.1rem;
+            color: #ffffff;
+            margin-bottom: 10px;
         }
 
-        .cta .btn {
-            background-color: var(--white);
-            color: var(--primary);
+        .feature-description {
+            color: #a0a8b0;
+            font-size: 0.9rem;
         }
 
-        .cta .btn:hover {
-            background-color: var(--accent);
-            color: var(--white);
+        /* 联系区域 */
+        .contact-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #0a0e1a 0%, #121a2b 100%);
         }
 
-        footer {
-            background-color: var(--dark);
-            color: var(--white);
-            padding: 3rem 0 1rem;
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 40px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #ffffff;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #00d4ff;
+            box-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+        }
+
+        .submit-button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, #00d4ff, #0088cc);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+        }
+
+        /* 页脚 */
+        .footer {
+            background: #0a0e1a;
+            padding: 40px 0;
+            text-align: center;
+            border-top: 1px solid rgba(0, 212, 255, 0.2);
         }
 
         .footer-content {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 2rem;
-            margin-bottom: 2rem;
+            color: #a0a8b0;
         }
 
-        .footer-column h3 {
-            font-size: 1.3rem;
-            margin-bottom: 1.5rem;
-            position: relative;
-            padding-bottom: 10px;
-        }
-
-        .footer-column h3::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 40px;
-            height: 2px;
-            background-color: var(--accent);
-        }
-
-        .footer-column p {
-            margin-bottom: 1rem;
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 0.8rem;
-        }
-
-        .footer-links li a {
-            color: var(--light);
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .footer-links li a:hover {
-            color: var(--accent);
-            padding-left: 5px;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .social-links a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            color: var(--white);
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .social-links a:hover {
-            background-color: var(--accent);
-            transform: translateY(-5px);
-        }
-
-        .copyright {
-            text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .mobile-menu {
-            display: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        @media (max-width: 992px) {
-            .about-content {
-                grid-template-columns: 1fr;
-            }
-            
-            .initiatives-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .footer-content {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .stats {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
+        /* 响应式设计 */
         @media (max-width: 768px) {
-            .hero h1 {
+            .hero-title {
                 font-size: 2.5rem;
             }
             
-            .hero p {
-                font-size: 1.1rem;
-            }
-            
-            nav ul {
+            .nav-links {
                 display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background-color: var(--primary);
-                flex-direction: column;
-                padding: 1rem 0;
-                text-align: center;
-                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
             }
             
-            nav ul.active {
-                display: flex;
-            }
-            
-            nav ul li {
-                margin: 0;
-                padding: 0.8rem 0;
-            }
-            
-            .mobile-menu {
-                display: block;
-            }
-            
-            .initiatives-grid {
+            .products-grid,
+            .features-grid {
                 grid-template-columns: 1fr;
             }
-            
-            .footer-content {
-                grid-template-columns: 1fr;
-            }
-            
-            .stats {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Animation for stats counter */
-        .counter {
-            transition: all 0.5s ease;
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <div class="container nav-container">
-            <div class="logo">
-                <i class="fas fa-seedling"></i>
-                <span>Green Network</span>
-            </div>
-            <nav>
-                <div class="mobile-menu">
-                    <i class="fas fa-bars"></i>
-                </div>
-                <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#initiatives">Initiatives</a></li>
-                    <li><a href="#get-involved">Get Involved</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </nav>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">智能安防科技</a>
+            <ul class="nav-links">
+                <li><a href="#products">产品中心</a></li>
+                <li><a href="#features">核心优势</a></li>
+                <li><a href="#contact">联系我们</a></li>
+            </ul>
         </div>
-    </header>
+    </nav>
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="container hero-content">
-            <h1>Protect Our Planet, Preserve Our Future</h1>
-            <p>Join the global movement to create a sustainable world through conservation, education, and community action.</p>
-            <a href="#get-involved" class="btn">Join Our Network</a>
+    <!-- 主要展示区域 -->
+    <section class="hero-section">
+        <div class="bg-animation" id="bgAnimation"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">智能监控 · 安全守护</h1>
+            <p class="hero-subtitle">
+                采用最新AI技术的高清监控摄像机解决方案<br>
+                为您的家庭和企业提供24小时专业级安全防护
+            </p>
+            <a href="#products" class="cta-button">探索产品</a>
         </div>
     </section>
 
-    <!-- About Section -->
-    <section id="about">
+    <!-- 产品展示 -->
+    <section class="products-section" id="products">
         <div class="container">
-            <div class="section-title">
-                <h2>About Green Network</h2>
-                <p>We are a global community dedicated to environmental protection and sustainable development.</p>
-            </div>
-            <div class="about-content">
-                <div class="about-img">
-                    <img src="https://images.unsplash.com/photo-1507591064344-4c6ce005b128?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Team planting trees">
-                </div>
-                <div class="about-text">
-                    <h3>Our Mission</h3>
-                    <p>Green Network is committed to creating a sustainable future by protecting natural ecosystems, promoting renewable energy, and empowering communities to take environmental action.</p>
-                    <p>Founded in 2010, we've grown from a small grassroots organization to an international network with over 50,000 members across 120 countries.</p>
-                    <p>Our approach combines scientific research, community engagement, and policy advocacy to address the most pressing environmental challenges of our time.</p>
-                    <a href="#" class="btn">Learn More</a>
-                </div>
-            </div>
-            <div class="stats">
-                <div class="stat-item">
-                    <i class="fas fa-tree"></i>
-                    <h3 class="counter" data-target="2500000">0</h3>
-                    <p>Trees Planted</p>
-                </div>
-                <div class="stat-item">
-                    <i class="fas fa-users"></i>
-                    <h3 class="counter" data-target="50000">0</h3>
-                    <p>Active Members</p>
-                </div>
-                <div class="stat-item">
-                    <i class="fas fa-globe-americas"></i>
-                    <h3 class="counter" data-target="120">0</h3>
-                    <p>Countries Reached</p>
-                </div>
-                <div class="stat-item">
-                    <i class="fas fa-recycle"></i>
-                    <h3 class="counter" data-target="1500">0</h3>
-                    <p>Cleanup Projects</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Initiatives Section -->
-    <section class="initiatives" id="initiatives">
-        <div class="container">
-            <div class="section-title">
-                <h2>Our Initiatives</h2>
-                <p>Discover the key programs and projects we're implementing to protect our planet.</p>
-            </div>
-            <div class="initiatives-grid">
-                <div class="initiative-card">
-                    <div class="initiative-img">
-                        <img src="https://dialogue.earth/content/uploads/2021/04/lessons-from-the-rush-to-reforest-china-dialogue-2400x1599.jpg" alt="Reforestation">
-                    </div>
-                    <div class="initiative-content">
-                        <h3>Global Reforestation</h3>
-                        <p>Planting millions of trees worldwide to restore ecosystems, combat climate change, and protect biodiversity.</p>
-                        <a href="#" class="btn">Learn More</a>
-                    </div>
-                </div>
-                <div class="initiative-card">
-                    <div class="initiative-img">
-                        <img src="https://images.unsplash.com/photo-1621451537084-482c73073a0f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80" alt="Ocean Conservation">
-                    </div>
-                    <div class="initiative-content">
-                        <h3>Ocean Conservation</h3>
-                        <p>Protecting marine ecosystems, reducing plastic pollution, and promoting sustainable fishing practices.</p>
-                        <a href="#" class="btn">Learn More</a>
-                    </div>
-                </div>
-                <div class="initiative-card">
-                    <div class="initiative-img">
-                        <img src="https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2072&q=80" alt="Renewable Energy">
-                    </div>
-                    <div class="initiative-content">
-                        <h3>Renewable Energy</h3>
-                        <p>Promoting solar, wind, and other clean energy sources to reduce dependence on fossil fuels.</p>
-                        <a href="#" class="btn">Learn More</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="cta" id="get-involved">
-        <div class="container">
-            <h2>Join Our Global Movement</h2>
-            <p>Together, we can create a sustainable future for generations to come. Every action counts, no matter how small.</p>
-            <a href="#" class="btn">Become a Member</a>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer id="contact">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <h3>Green Network</h3>
-                    <p>We are dedicated to protecting our planet through collaborative action, education, and sustainable solutions.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                </div>
-                <div class="footer-column">
-                    <h3>Quick Links</h3>
-                    <ul class="footer-links">
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#about">About Us</a></li>
-                        <li><a href="#initiatives">Initiatives</a></li>
-                        <li><a href="#get-involved">Get Involved</a></li>
-                        <li><a href="#contact">Contact</a></li>
+            <h2 class="section-title">产品系列</h2>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-icon">📹</div>
+                    <h3 class="product-title">家用智能摄像机</h3>
+                    <p class="product-description">4K超高清画质，360度全景监控，AI人形检测，支持手机远程查看</p>
+                    <ul class="product-features">
+                        <li>2K/4K超清画质</li>
+                        <li>双向语音对讲</li>
+                        <li>移动侦测报警</li>
+                        <li>云端存储服务</li>
                     </ul>
                 </div>
-                <div class="footer-column">
-                    <h3>Our Programs</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Reforestation</a></li>
-                        <li><a href="#">Ocean Cleanup</a></li>
-                        <li><a href="#">Wildlife Protection</a></li>
-                        <li><a href="#">Climate Education</a></li>
-                        <li><a href="#">Sustainable Agriculture</a></li>
+                <div class="product-card">
+                    <div class="product-icon">🏢</div>
+                    <h3 class="product-title">商用监控系统</h3>
+                    <p class="product-description">企业级安防解决方案，多路同时监控，智能分析，全天候防护</p>
+                    <ul class="product-features">
+                        <li>多路高清监控</li>
+                        <li>智能人脸识别</li>
+                        <li>行为分析算法</li>
+                        <li>本地+云端双存储</li>
                     </ul>
                 </div>
-                <div class="footer-column">
-                    <h3>Contact Us</h3>
-                    <p><i class="fas fa-map-marker-alt"></i> Copper Creek Drive, New York</p>
-                    <p><i class="fas fa-phone"></i> +1 (312) 171-0771</p>
-                    <p><i class="fas fa-envelope"></i> support@greennetwork.org</p>
+                <div class="product-card">
+                    <div class="product-icon">🌙</div>
+                    <h3 class="product-title">夜视专业摄像机</h3>
+                    <p class="product-description">星光级夜视技术，全彩夜视，30米红外距离，24小时不间断监控</p>
+                    <ul class="product-features">
+                        <li>全彩夜视技术</li>
+                        <li>30米红外距离</li>
+                        <li>IP67防水防尘</li>
+                        <li>智能补光系统</li>
+                    </ul>
                 </div>
             </div>
-            <div class="copyright">
-                <p>&copy; 2025 Green Network. All rights reserved.</p>
+        </div>
+    </section>
+
+    <!-- 核心特性 -->
+    <section class="features-section" id="features">
+        <div class="container">
+            <h2 class="section-title">核心优势</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-number">4K</div>
+                    <div class="feature-label">超高清画质</div>
+                    <div class="feature-description">采用最新图像传感器，呈现细腻清晰的监控画面</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-number">AI</div>
+                    <div class="feature-label">智能分析</div>
+                    <div class="feature-description">人工智能算法，精准识别人形、车辆等目标</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-number">24/7</div>
+                    <div class="feature-label">全天候监控</div>
+                    <div class="feature-description">不间断监控防护，让您安心无忧</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-number">云</div>
+                    <div class="feature-label">云端存储</div>
+                    <div class="feature-description">安全可靠的云端存储，随时随地查看录像</div>
+                </div>
             </div>
+        </div>
+    </section>
+
+    <!-- 联系表单 -->
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <h2 class="section-title">获取专业方案</h2>
+            <form class="contact-form">
+                <div class="form-group">
+                    <label for="name">姓名</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">联系电话</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="company">公司名称</label>
+                    <input type="text" id="company" name="company">
+                </div>
+                <div class="form-group">
+                    <label for="needs">需求描述</label>
+                    <textarea id="needs" name="needs" rows="4" placeholder="请描述您的监控需求..."></textarea>
+                </div>
+                <button type="submit" class="submit-button">获取专属方案</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2025 智能安防科技有限公司 | 专业监控解决方案提供商</p>
         </div>
     </footer>
 
     <script>
-        // Mobile Menu Toggle
-        document.querySelector('.mobile-menu').addEventListener('click', function() {
-            document.querySelector('nav ul').classList.toggle('active');
-        });
+        // 背景动画效果
+        function createFloatingElements() {
+            const bgAnimation = document.getElementById('bgAnimation');
+            const elementCount = 50;
 
-        // Counter Animation
-        function animateCounters() {
-            const counters = document.querySelectorAll('.counter');
-            const speed = 200; // The lower the slower
-            
-            counters.forEach(counter => {
-                const target = +counter.getAttribute('data-target');
-                const count = +counter.innerText;
-                
-                const inc = target / speed;
-                
-                if(count < target) {
-                    counter.innerText = Math.ceil(count + inc);
-                    setTimeout(animateCounters, 1);
+            for (let i = 0; i < elementCount; i++) {
+                const element = document.createElement('div');
+                element.className = 'floating-element';
+                element.style.left = Math.random() * 100 + '%';
+                element.style.top = Math.random() * 100 + '%';
+                element.style.animationDelay = Math.random() * 6 + 's';
+                element.style.animationDuration = (6 + Math.random() * 4) + 's';
+                bgAnimation.appendChild(element);
+            }
+        }
+
+        // 平滑滚动
+        function smoothScroll() {
+            const links = document.querySelectorAll('a[href^="#"]');
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        }
+
+        // 导航栏滚动效果
+        function navbarScroll() {
+            const navbar = document.querySelector('.navbar');
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 100) {
+                    navbar.style.background = 'rgba(10, 14, 26, 0.98)';
+                    navbar.style.padding = '15px 0';
                 } else {
-                    counter.innerText = target;
+                    navbar.style.background = 'rgba(10, 14, 26, 0.95)';
+                    navbar.style.padding = '20px 0';
                 }
             });
         }
 
-        // Initialize counters when page loads
-        window.addEventListener('load', animateCounters);
-
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
+        // 表单提交处理
+        function handleFormSubmit() {
+            const form = document.querySelector('.contact-form');
+            form.addEventListener('submit', function(e) {
                 e.preventDefault();
                 
-                const targetId = this.getAttribute('href');
-                if(targetId === '#') return;
+                // 获取表单数据
+                const formData = new FormData(form);
+                const data = Object.fromEntries(formData);
                 
-                const targetElement = document.querySelector(targetId);
-                if(targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                    
-                    document.querySelector('nav ul').classList.remove('active');
-                }
+                // 模拟提交过程
+                const submitButton = form.querySelector('.submit-button');
+                const originalText = submitButton.textContent;
+                submitButton.textContent = '提交中...';
+                submitButton.disabled = true;
+                
+                setTimeout(() => {
+                    alert('感谢您的咨询！我们的专业顾问将在24小时内与您联系。');
+                    form.reset();
+                    submitButton.textContent = originalText;
+                    submitButton.disabled = false;
+                }, 2000);
             });
+        }
+
+        // 产品卡片动画
+        function animateProductCards() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            const productCards = document.querySelectorAll('.product-card');
+            productCards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(50px)';
+                card.style.transition = 'all 0.6s ease';
+                observer.observe(card);
+            });
+        }
+
+        // 数字动画效果
+        function animateNumbers() {
+            const numbers = document.querySelectorAll('.feature-number');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const target = entry.target;
+                        const finalText = target.textContent;
+                        
+                        // 为纯数字添加动画效果
+                        if (!isNaN(finalText)) {
+                            let current = 0;
+                            const increment = finalText / 50;
+                            const timer = setInterval(() => {
+                                current += increment;
+                                if (current >= finalText) {
+                                    target.textContent = finalText;
+                                    clearInterval(timer);
+                                } else {
+                                    target.textContent = Math.floor(current);
+                                }
+                            }, 30);
+                        }
+                    }
+                });
+            }, {
+                threshold: 0.5
+            });
+
+            numbers.forEach(number => observer.observe(number));
+        }
+
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            createFloatingElements();
+            smoothScroll();
+            navbarScroll();
+            handleFormSubmit();
+            animateProductCards();
+            animateNumbers();
         });
     </script>
 </body>
-
 </html>
